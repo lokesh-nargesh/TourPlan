@@ -1,0 +1,25 @@
+# Portable Tools
+/apache-maven-3.9.6/
+
+# IDE files
+.idea/
+.vscode/
+*.iml
+*.iws
+*.ipr
+
+# Maven builds
+**/target/
+**/*.class
+
+# Node / Angular builds
+**/node_modules/
+**/dist/
+.angular/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# Database configuration temp files or logs
+*.log
