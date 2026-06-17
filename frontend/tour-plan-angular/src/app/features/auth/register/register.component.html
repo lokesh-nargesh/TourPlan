@@ -1,0 +1,47 @@
+<div class="auth-wrapper animate-fade-in">
+  <div class="glass-panel auth-card">
+    <div class="auth-header">
+      <h2>Create Account</h2>
+      <p>Join VibeTour and start designing your plans</p>
+    </div>
+
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="auth-form">
+      <div class="alert alert-danger" *ngIf="errorMessage">
+        {{ errorMessage }}
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Username</label>
+        <input type="text" formControlName="username" class="form-control" placeholder="Choose a username" autocomplete="username">
+        <div class="error-msg" *ngIf="f['username'].touched && f['username'].invalid">
+          Username is required (min 3 chars).
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Email Address</label>
+        <input type="email" formControlName="email" class="form-control" placeholder="name@example.com" autocomplete="email">
+        <div class="error-msg" *ngIf="f['email'].touched && f['email'].invalid">
+          Please enter a valid email address.
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Password</label>
+        <input type="password" formControlName="password" class="form-control" placeholder="••••••••" autocomplete="new-password">
+        <div class="error-msg" *ngIf="f['password'].touched && f['password'].invalid">
+          Password is required (min 6 chars).
+        </div>
+      </div>
+
+      <button type="submit" [disabled]="registerForm.invalid || loading" class="btn btn-primary btn-block">
+        <span class="spinner" *ngIf="loading"></span>
+        <span *ngIf="!loading">Register</span>
+      </button>
+    </form>
+
+    <div class="auth-footer">
+      <p>Already have an account? <a routerLink="/login">Login here</a></p>
+    </div>
+  </div>
+</div>

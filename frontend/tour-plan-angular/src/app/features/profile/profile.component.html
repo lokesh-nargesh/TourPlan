@@ -1,0 +1,126 @@
+<div class="app-container animate-fade-in">
+  <div class="grid-cols-12 profile-grid">
+    <!-- Left 6 Columns: Profile Preferences -->
+    <div class="col-6 profile-section">
+      <div class="glass-panel card-section">
+        <h2>Traveler Profile & Preferences</h2>
+        <div class="alert alert-success" *ngIf="profileSuccessMessage">
+          {{ profileSuccessMessage }}
+        </div>
+
+        <form [formGroup]="profileForm" (ngSubmit)="onUpdateProfile()" class="profile-form">
+          <div class="form-group">
+            <label class="form-label">Full Name</label>
+            <input type="text" formControlName="fullName" class="form-control">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Phone Number</label>
+            <input type="text" formControlName="phone" class="form-control">
+          </div>
+
+          <!-- Preferences Form Sub-group -->
+          <div class="preferences-box glass-panel">
+            <h3>Travel Preferences</h3>
+
+            <div class="form-group">
+              <label class="form-label">Dietary Preference</label>
+              <select formControlName="prefDiet" class="form-control">
+                <option value="Veg">Vegetarian</option>
+                <option value="Non-Veg">Non-Vegetarian / Anything</option>
+                <option value="Vegan">Vegan</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Budget Tier</label>
+              <select formControlName="prefBudget" class="form-control">
+                <option value="Economy">Economy / Budget</option>
+                <option value="Mid-Range">Mid-Range / Comfort</option>
+                <option value="Luxury">Luxury / Executive</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Preferred Transport</label>
+              <select formControlName="prefTransport" class="form-control">
+                <option value="Flight">Aviation / Flights</option>
+                <option value="Train">Railway / Trains</option>
+                <option value="Taxi">Private Taxis</option>
+              </select>
+            </div>
+          </div>
+
+          <button type="submit" [disabled]="profileForm.invalid || savingProfile" class="btn btn-primary block-btn">
+            <span class="spinner" *ngIf="savingProfile"></span>
+            <span *ngIf="!savingProfile">Save Preferences</span>
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Right 6 Columns: Co-Passengers List & Forms -->
+    <div class="col-6 passengers-section">
+      <!-- Passengers List -->
+      <div class="glass-panel card-section">
+        <h2>Saved Passengers</h2>
+        <p class="section-desc">Manage family and friends details to quickly add them to your flight or train bookings.</p>
+
+        <div class="passenger-list">
+          <div class="passenger-item" *ngFor="let p of passengers">
+            <div class="pass-info">
+              <div class="pass-name">{{ p.fullName }}</div>
+              <div class="pass-sub">Age: {{ p.age }} | Gender: {{ p.gender }} | Passport: {{ p.passportNumber || 'N/A' }}</div>
+            </div>
+            <button (click)="onDeletePassenger(p.id!)" class="btn-delete">&times;</button>
+          </div>
+          <div class="empty-list" *ngIf="passengers.length === 0">
+            No saved passengers. Use the form below to add.
+          </div>
+        </div>
+      </div>
+
+      <!-- Add Passenger Form -->
+      <div class="glass-panel card-section add-passenger-card">
+        <h2>Add Co-Passenger</h2>
+        <form [formGroup]="passengerForm" (ngSubmit)="onAddPassenger()" class="passenger-form">
+          <div class="form-group">
+            <label class="form-label">Full Name</label>
+            <input type="text" formControlName="fullName" class="form-control" placeholder="Passenger full name">
+            <div class="error-msg" *ngIf="pf['fullName'].touched && pf['fullName'].invalid">
+              Name is required.
+            </div>
+          </div>
+
+          <div class="date-row">
+            <div class="form-group col-6">
+              <label class="form-label">Age</label>
+              <input type="number" formControlName="age" class="form-control" placeholder="Age">
+              <div class="error-msg" *ngIf="pf['age'].touched && pf['age'].invalid">
+                Valid age is required.
+              </div>
+            </div>
+            <div class="form-group col-6">
+              <label class="form-label">Gender</label>
+              <select formControlName="gender" class="form-control">
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Passport Number (Optional)</label>
+            <input type="text" formControlName="passportNumber" class="form-control" placeholder="e.g. A12345678">
+          </div>
+
+          <button type="submit" [disabled]="passengerForm.invalid || savingPassenger" class="btn btn-secondary block-btn">
+            <span class="spinner" *ngIf="savingPassenger"></span>
+            <span *ngIf="!savingPassenger">+ Add Passenger</span>
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

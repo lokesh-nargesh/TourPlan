@@ -1,0 +1,106 @@
+.profile-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 24px;
+  margin-top: 20px;
+}
+.col-6 {
+  grid-column: span 6;
+}
+.card-section {
+  padding: 30px;
+  border-radius: var(--border-radius-md);
+  margin-bottom: 24px;
+}
+.card-section h2 {
+  font-size: 1.35rem;
+  margin-bottom: 20px;
+  border-bottom: 1px solid var(--glass-border);
+  padding-bottom: 10px;
+}
+.alert {
+  padding: 12px 16px;
+  border-radius: var(--border-radius-sm);
+  font-size: 0.875rem;
+  margin-bottom: 16px;
+}
+.alert-success {
+  background: rgba(16, 185, 129, 0.15);
+  border: 1px solid rgba(16, 185, 129, 0.25);
+  color: #a7f3d0;
+}
+.profile-form, .passenger-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.preferences-box {
+  padding: 20px;
+  border-radius: var(--border-radius-sm);
+  background: rgba(255, 255, 255, 0.02);
+  margin-bottom: 10px;
+}
+.preferences-box h3 {
+  font-size: 1rem;
+  margin-bottom: 16px;
+}
+.block-btn {
+  width: 100%;
+}
+
+.section-desc {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.4;
+  margin-bottom: 20px;
+}
+.passenger-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-height: 250px;
+  overflow-y: auto;
+}
+.passenger-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--glass-border);
+  padding: 12px 16px;
+  border-radius: var(--border-radius-sm);
+}
+.pass-name {
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+.pass-sub {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  margin-top: 2px;
+}
+.btn-delete {
+  background: none;
+  border: none;
+  color: var(--color-danger);
+  font-size: 1.5rem;
+  cursor: pointer;
+  line-height: 1;
+  padding: 0 4px;
+}
+.empty-list {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  text-align: center;
+  padding: 20px 0;
+}
+
+.date-row {
+  display: flex;
+  gap: 12px;
+}
+.error-msg {
+  color: var(--color-danger);
+  font-size: 0.75rem;
+  margin-top: 6px;
+}

@@ -1,0 +1,62 @@
+<nav class="glass-header">
+  <div class="nav-container">
+    <a routerLink="/" class="logo-group">
+      <span class="logo-icon">✈</span>
+      <span class="logo-text">Vibe<span class="gradient-text">Tour</span></span>
+    </a>
+
+    <!-- Menu for Authenticated Users -->
+    <div class="nav-links" *ngIf="isLoggedIn">
+      <a routerLink="/dashboard" routerLinkActive="active" class="nav-item">Dashboard</a>
+      <a routerLink="/planner" routerLinkActive="active" class="nav-item">Create Plan</a>
+      <a routerLink="/profile" routerLinkActive="active" class="nav-item">Profile</a>
+    </div>
+
+    <div class="nav-actions">
+      <!-- Notification Bell -->
+      <div class="notif-wrapper" *ngIf="isLoggedIn">
+        <button class="icon-btn" (click)="toggleNotifications($event)">
+          <span class="bell-icon">🔔</span>
+          <span class="badge" *ngIf="unreadCount > 0">{{ unreadCount }}</span>
+        </button>
+
+        <!-- Notifications Dropdown -->
+        <div class="notif-dropdown glass-panel" *ngIf="showNotifications">
+          <div class="dropdown-header">
+            <h3>Notifications</h3>
+            <span class="mark-read" (click)="clearNotifications()">Clear all</span>
+          </div>
+          <div class="dropdown-body">
+            <div class="notif-item" *ngFor="let n of notifications">
+              <div class="notif-title">{{ n.title }}</div>
+              <div class="notif-message">{{ n.message }}</div>
+            </div>
+            <div class="empty-state" *ngIf="notifications.length === 0">
+              No notifications yet
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- User Profile Dropdown / Auth Buttons -->
+      <ng-container *ngIf="isLoggedIn; else authButtons">
+        <div class="profile-group" (click)="toggleProfileMenu($event)">
+          <img [src]="avatarUrl || 'https://api.dicebear.com/7.x/adventurer/svg?seed=avatar'" alt="Avatar" class="avatar">
+          <span class="username">{{ username }}</span>
+          <div class="profile-dropdown glass-panel" *ngIf="showProfileMenu">
+            <a routerLink="/profile" class="dropdown-item">My Preferences</a>
+            <div class="dropdown-divider"></div>
+            <button (click)="logout()" class="dropdown-item logout-btn">Logout</button>
+          </div>
+        </div>
+      </ng-container>
+
+      <ng-template #authButtons>
+        <div class="auth-buttons">
+          <a routerLink="/login" class="btn btn-secondary btn-sm">Login</a>
+          <a routerLink="/register" class="btn btn-primary btn-sm">Register</a>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+</nav>

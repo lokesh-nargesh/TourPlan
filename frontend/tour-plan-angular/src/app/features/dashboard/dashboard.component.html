@@ -1,0 +1,96 @@
+<div class="app-container animate-fade-in">
+  <!-- Welcome Header -->
+  <div class="welcome-header">
+    <div>
+      <h1>Welcome, <span class="gradient-text">{{ username }}</span>!</h1>
+      <p class="subtitle">Where would you like to travel next? Plan, track, and book your budget-friendly tour.</p>
+    </div>
+    <a routerLink="/planner" class="btn btn-primary">
+      <span>+</span> Plan a New Trip
+    </a>
+  </div>
+
+  <!-- Quick Summary Cards -->
+  <div class="grid-cols-12 summary-grid">
+    <div class="glass-panel summary-card col-4">
+      <div class="card-icon cyan">🗺️</div>
+      <div class="card-info">
+        <h3>{{ plans.length }}</h3>
+        <p>Total Tour Plans</p>
+      </div>
+    </div>
+
+    <div class="glass-panel summary-card col-4">
+      <div class="card-icon pink">💵</div>
+      <div class="card-info">
+        <h3>\${{ totalAllocatedBudget | number:'1.0-2' }}</h3>
+        <p>Total Planned Budget</p>
+      </div>
+    </div>
+
+    <div class="glass-panel summary-card col-4">
+      <div class="card-icon purple">💰</div>
+      <div class="card-info">
+        <h3>\${{ totalSpentBudget | number:'1.0-2' }}</h3>
+        <p>Total Spent Booking</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Contents Grid -->
+  <div class="grid-cols-12 main-grid">
+    <!-- Tour Plans List -->
+    <div class="col-8 plans-section">
+      <div class="section-title">
+        <h2>Your Travel Itineraries</h2>
+        <p>Drafts and confirmed vacations</p>
+      </div>
+
+      <div class="plans-list" *ngIf="plans.length > 0; else noPlans">
+        <div class="glass-panel glass-panel-hover plan-item" *ngFor="let p of plans" (click)="viewPlan(p.id)">
+          <div class="plan-main">
+            <div class="plan-dest">{{ p.destination }}</div>
+            <div class="plan-dates">📅 {{ p.startDate }} &rarr; {{ p.endDate }}</div>
+          </div>
+
+          <div class="plan-budget-status">
+            <div class="plan-budget">
+              <span class="label">Budget:</span> \${{ p.totalBudget | number:'1.0-2' }}
+            </div>
+            <span class="badge" [ngClass]="{
+              'badge-info': p.status === 'DRAFT',
+              'badge-success': p.status === 'APPROVED',
+              'badge-warning': p.status === 'BOOKED'
+            }">{{ p.status }}</span>
+          </div>
+        </div>
+      </div>
+
+      <ng-template #noPlans>
+        <div class="glass-panel empty-card">
+          <span class="empty-icon">🎒</span>
+          <h3>No trips planned yet</h3>
+          <p>Create your first custom itinerary to start booking flights, hotels, and taxis.</p>
+          <a routerLink="/planner" class="btn btn-secondary">Get Started</a>
+        </div>
+      </ng-template>
+    </div>
+
+    <!-- Right Side: Travel Tips & Preferences -->
+    <div class="col-4 side-section">
+      <div class="glass-panel side-card">
+        <h3>Quick Travel Tip</h3>
+        <div class="tip-content">
+          <span class="tip-bulb">💡</span>
+          <p>Try allocating at least 15% of your travel budget to food and dining to sample the authentic local heritage dishes!</p>
+        </div>
+      </div>
+
+      <div class="glass-panel side-card preference-card">
+        <h3>Travel Preferences</h3>
+        <p class="preference-desc">Update your profile to set default preferences (e.g. Flight/Train, Budget/Luxury, Vegan/Veg).</p>
+        <a routerLink="/profile" class="btn btn-secondary btn-sm block-btn">Manage Preferences</a>
+      </div>
+    </div>
+  </div>
+</div>
